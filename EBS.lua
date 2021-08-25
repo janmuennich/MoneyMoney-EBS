@@ -1,6 +1,6 @@
 local BANK_CODE = "EBS"
 
-WebBanking{version     = 1.01,
+WebBanking{version     = 1.02,
            url         = "https://onlinebanking.ebs.ie/EBSOnlineBankingWeb/onlinebanking",
            services    = {BANK_CODE},
            description = string.format(MM.localizeText("Get balance and transactions for %s"), BANK_CODE)}
@@ -174,7 +174,7 @@ function RefreshAccount (account, since)
             
             table.insert(transactions, {
                 name = transaction:xpath(".//transactiondesc"):text(),
-                amount = transaction:xpath(".//transactionamount"):text(),
+                amount = "-" .. transaction:xpath(".//transactionamount"):text(),
                 bookingDate = dateToTimestamp(transaction:xpath(".//transactiondate"):text()),
                 bookingText = bookingText,
                 booked = false
